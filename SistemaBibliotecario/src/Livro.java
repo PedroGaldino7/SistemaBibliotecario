@@ -8,14 +8,14 @@ public class Livro {
         this.codigo = "000";
         this.titulo = "Titulo Padrao";
         this.autor = "Autor Padrao";
-        this.disponivel = true; // Livro inicialmente disponível
+        this.disponivel = true;
     }
     
     public Livro(String codigo, String titulo, String autor) {
         this.codigo = codigo;
-        this.titulo = titulo;
+        this.titulo = titulo;   
         this.autor = autor;
-        this.disponivel = true; // Livro inicialmente disponível
+        this.disponivel = true;
     }
 
     public String getCodigo() {
