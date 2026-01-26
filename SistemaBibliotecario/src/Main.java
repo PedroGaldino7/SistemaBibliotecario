@@ -1,6 +1,7 @@
 // javac -d bin src/*.java
 // java -cp bin Main
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -9,6 +10,24 @@ public class Main {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
+
+public static int lerIntSeguro(Scanner sc) {
+    while (true) {
+        try {
+            int valor = sc.nextInt();
+            sc.nextLine();
+            return valor;
+        } catch (InputMismatchException e) {
+            sc.nextLine();
+            limparTela();
+            System.out.println("Entrada invalida! Digite apenas numeros.");
+            System.out.println("Pressione Enter para voltar ao menu...");
+            sc.nextLine();
+            return -1;
+        }
+    }
+}
+
 
     public static void main(String[] args) throws Exception {
         Scanner sc = new Scanner(System.in);
@@ -25,8 +44,8 @@ public class Main {
             System.out.println("2. Gerenciar usuarios");
             System.out.println("0. Sair");
             System.out.print("Escolha uma opcao: ");
-            op = sc.nextInt();
-            sc.nextLine();
+            op = lerIntSeguro(sc);
+            if (op == -1) continue;
 
             switch (op) {
                 case 1:
@@ -39,9 +58,8 @@ public class Main {
                         System.out.println("3. Excluir livros:");
                         System.out.println("0. Sair:");
                         System.out.print("Escolha uma opcao: ");
-                        opLivro = sc.nextInt();
-                        sc.nextLine();
-
+                        opLivro = lerIntSeguro(sc);
+                        if (opLivro == -1) continue;
 
                         switch (opLivro) {
                             case 1:
@@ -120,8 +138,8 @@ public class Main {
                         System.out.println("3. Excluir usuario");
                         System.out.println("0. Voltar");
                         System.out.print("Escolha uma opcao: ");
-                        opUsuario = sc.nextInt();
-                        sc.nextLine();
+                        opUsuario = lerIntSeguro(sc);
+                        if (opUsuario == -1) continue;
 
                         switch (opUsuario) {
                             case 1:
