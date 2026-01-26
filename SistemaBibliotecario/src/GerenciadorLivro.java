@@ -118,6 +118,11 @@ public class GerenciadorLivro {
         }
     }
 
+    public boolean livroExiste(String codigo) {
+        return livros.stream()
+            .anyMatch(l -> l.getCodigo().equals(codigo));
+    }
+
     public List<Livro> getLivros() {
         return livros;
     }

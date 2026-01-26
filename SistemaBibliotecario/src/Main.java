@@ -49,6 +49,14 @@ public class Main {
                                 System.out.println("=== Cadastro de Livros ===");
                                 System.out.print("Codigo: ");
                                 String codigo = sc.nextLine();
+
+                                if (gerenciadorlivro.livroExiste(codigo)) {
+                                    System.out.println("Livro ja cadastrado.");
+                                    System.out.println("Pressione Enter para voltar pro menu...");
+                                    sc.nextLine();
+                                    break;
+                                }
+
                                 System.out.print("Titulo: ");
                                 String titulo = sc.nextLine();
                                 System.out.print("Autor: ");
@@ -120,8 +128,16 @@ public class Main {
                                 limparTela();
                                 System.out.println("=== Cadastro de Usuarios ===");
                                 System.out.println("Digite os dados do usuario:");
-                                System.out.println("Matricula:");
+                                System.out.print("Matricula: ");
                                 String matricula = sc.nextLine();
+
+                                if (gerenciadorusuario.usuarioExiste(matricula)) {
+                                    System.out.println("Usuario ja cadastrado.");
+                                    System.out.println("Pressione Enter para voltar pro menu...");
+                                    sc.nextLine();
+                                    break;
+                                }
+
                                 System.out.print("Nome: ");
                                 String nome = sc.nextLine();
                                 System.out.print("Email: ");
