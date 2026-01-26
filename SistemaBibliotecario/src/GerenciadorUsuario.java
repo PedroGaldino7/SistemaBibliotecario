@@ -73,6 +73,48 @@ public class GerenciadorUsuario {
         }
     }
 
+    public boolean excluirUsuario(String matricula) {
+    boolean removido = usuarios.removeIf(
+        u -> u.getMatricula().equals(matricula)
+    );
+
+    if (removido) {
+        if (usuarios.isEmpty()) {
+            apagarArquivo();
+        } else {
+            atualizarArquivo();
+        }
+    }
+
+    return removido;
+}
+
+
+public void apagarArquivo() {
+    File arquivo = new File("usuarios.txt");
+
+    if (arquivo.exists()) {
+        if (arquivo.delete()) {
+
+        } else {}
+    }
+}
+
+
+    public void atualizarArquivo() {
+    try (FileWriter writer = new FileWriter("usuarios.txt")) { // SEM append
+        for (Usuario u : usuarios) {
+            writer.write(
+                u.getMatricula() + ";" +
+                u.getNome() + ";" +
+                u.getEmail() + "\n"
+            );
+        }
+    } catch (IOException e) {
+        System.out.println("Erro ao atualizar arquivo: " + e.getMessage());
+    }
+}
+
     public List<Usuario> getUsuarios() {
         return usuarios;
     }

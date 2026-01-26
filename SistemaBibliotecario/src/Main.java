@@ -144,28 +144,25 @@ public class Main {
                             case 3:
                                 limparTela();
                                 System.out.println("=== Exclusão de Usuarios ===");
-                                System.out.println("Construindo...");
-                                System.out.println("Pressione Enter para continuar...");
-                                sc.nextLine();
                                 gerenciadorusuario.listarUsuarios();
 
-                                // if (gerenciadorusuario.getUsuarios().isEmpty()) {
-                                //     System.out.println("Pressione Enter para continuar...");
-                                //     sc.nextLine();
-                                //     break;
-                                // } else {
-                                //     System.out.print("Digite o nome do usuário a ser excluído: ");
-                                //     String nomeExcluir = sc.nextLine();
-                                //     boolean excluido = gerenciadorusuario.excluirUsuario(nomeExcluir);
-                                //     if (excluido) {
-                                //         System.out.println("Usuário excluído com sucesso!");
-                                //     } else {
-                                //         System.out.println("Usuário não encontrado.");
-                                //     }
-                                //     System.out.println("Pressione Enter para continuar...");
-                                //     sc.nextLine();
-                                //     break;
-                                // }
+                                if (gerenciadorusuario.getUsuarios().isEmpty()) {
+                                    System.out.println("Pressione Enter para continuar...");
+                                    sc.nextLine();
+                                    break;
+                                } else {
+                                    System.out.print("Digite a matricula do usuario a ser excluido: ");
+                                    String matriculaExcluir = sc.nextLine();
+                                    boolean excluido = gerenciadorusuario.excluirUsuario(matriculaExcluir);
+                                    if (excluido) {
+                                        System.out.println("Usuario excluido com sucesso!");
+                                    } else {
+                                        System.out.println("Usuario nao encontrado.");
+                                    }
+                                    System.out.println("Pressione Enter para continuar...");
+                                    sc.nextLine();
+                                    break;
+                                }
 
                             case 0:
                                 System.out.println("Saindo...");
