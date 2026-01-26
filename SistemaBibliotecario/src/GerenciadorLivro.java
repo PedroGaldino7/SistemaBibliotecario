@@ -49,6 +49,29 @@ public class GerenciadorLivro {
         }
     }
 
+    public List<Livro> getLivrosDisponiveis() {
+        List<Livro> disponiveis = new ArrayList<>();
+
+        for (Livro l : livros) {
+            if (l.isDisponivel()) {
+                disponiveis.add(l);
+            }
+        }
+        return disponiveis;
+    }
+
+    public List<Livro> getLivrosEmprestados() {
+        List<Livro> emprestados = new ArrayList<>();
+
+        for (Livro l : livros) {
+            if (!l.isDisponivel()) {
+                emprestados.add(l);
+            }
+        }
+        return emprestados;
+    }
+
+
     public void carregarLivrosDoArquivo() {
         File arquivo = new File("livros.txt");
 

@@ -87,13 +87,72 @@ public static int lerIntSeguro(Scanner sc) {
                                 break;
                             
                             case 2:
+                                int listarOp;
+                                do{
                                 limparTela();
                                 System.out.println("=== Lista de Livros ===");
-                                gerenciadorlivro.listarLivros();
-                                System.out.println("Pressione Enter para continuar...");
-                                sc.nextLine();
+                                System.out.println("1. Livros disponiveis");
+                                System.out.println("2. livros emprestados");
+                                System.out.println("3. todos os livros");
+                                System.out.println("0. Voltar ao menu");
+                                System.out.print("Escolha uma opcao: ");
+                                listarOp = lerIntSeguro(sc);
+                                if (listarOp == -1) continue;
+                                
+                                switch (listarOp) {
+                                    case 1:
+                                        limparTela();
+                                        System.out.println("=== Livros Disponiveis ===");
+
+                                        if (gerenciadorlivro.getLivrosDisponiveis().isEmpty()) {
+                                            System.out.println("Nenhum livro disponivel.");
+                                            System.out.println("Pressione Enter para voltar ao menu...");
+                                            sc.nextLine();
+                                            break;
+                                        }
+                                        for (Livro l : gerenciadorlivro.getLivrosDisponiveis()) {
+                                            System.out.println(l.getCodigo() + " - " + l.getTitulo() + " | " + l.getAutor());
+                                        }
+                                        System.out.println("Pressione Enter para voltar ao menu...");
+                                        sc.nextLine();
+                                        break;
+
+                                    case 2:
+                                        limparTela();
+                                        System.out.println("=== Livros Emprestados ===");
+
+                                        if (gerenciadorlivro.getLivrosEmprestados().isEmpty()) {
+                                            System.out.println("Nenhum livro emprestado.");
+                                            System.out.println("Pressione Enter para voltar ao menu...");
+                                            sc.nextLine();
+                                            break;
+                                        }
+
+                                        for (Livro l : gerenciadorlivro.getLivrosEmprestados()) {
+                                            System.out.println(l.getCodigo() + " - " + l.getTitulo() + " | " + l.getAutor());
+                                        }
+                                        System.out.println("Pressione Enter para voltar ao menu...");
+                                        sc.nextLine();
+                                        break;
+
+                                    case 3:
+                                        limparTela();
+                                        System.out.println("=== Todos os Livros ===");
+                                        gerenciadorlivro.listarLivros();
+                                        System.out.println("Pressione Enter para voltar ao menu...");
+                                        sc.nextLine();
+                                        break;
+
+                                    case 0:
+                                        limparTela();
+
+                                    default:
+                                        System.out.println("Opcao invalida!");
+                                        break;
+                                }
+                            }while(listarOp != 0);
                                 break;
-                            
+
                             case 3:
                                 limparTela();
                                 System.out.println("=== Exclusao de Livros ===");
@@ -211,7 +270,6 @@ public static int lerIntSeguro(Scanner sc) {
 
                 case 0:
                     System.out.println("Saindo do sistema...");
-                    // gerenciadorlivro.salvarLivrosNoArquivo();
                     break;
 
                 default:
