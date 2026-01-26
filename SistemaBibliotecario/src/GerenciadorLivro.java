@@ -76,49 +76,47 @@ public class GerenciadorLivro {
     }
 
     public boolean excluirLivro(String codigo) {
-    boolean removido = livros.removeIf(
-        l -> l.getCodigo().equals(codigo)
-    );
+        boolean removido = livros.removeIf(
+            l -> l.getCodigo().equals(codigo)
+        );
 
-    if (removido) {
-        if (livros.isEmpty()) {
-            apagarArquivo();
-        } else {
-            atualizarArquivo();
+        if (removido) {
+            if (livros.isEmpty()) {
+                apagarArquivo();
+            } else {
+                atualizarArquivo();
+            }
+        }
+
+        return removido;
+    }
+
+
+    public void apagarArquivo() {
+        File arquivo = new File("livros.txt");
+
+        if (arquivo.exists()) {
+            if (arquivo.delete()) {
+
+            } else {}
         }
     }
-
-    return removido;
-}
-
-
-public void apagarArquivo() {
-    File arquivo = new File("livros.txt");
-
-    if (arquivo.exists()) {
-        if (arquivo.delete()) {
-
-        } else {}
-    }
-}
 
 
     public void atualizarArquivo() {
-    try (FileWriter writer = new FileWriter("livros.txt")) { // SEM append
-        for (Livro l : livros) {
-            writer.write(
-                l.getCodigo() + ";" +
-                l.getTitulo() + ";" +
-                l.getAutor() + ";" +
-                l.isDisponivel() + "\n"
-            );
+        try (FileWriter writer = new FileWriter("livros.txt")) { // SEM append
+            for (Livro l : livros) {
+                writer.write(
+                    l.getCodigo() + ";" +
+                    l.getTitulo() + ";" +
+                    l.getAutor() + ";" +
+                    l.isDisponivel() + "\n"
+                );
+            }
+        } catch (IOException e) {
+            System.out.println("Erro ao atualizar arquivo: " + e.getMessage());
         }
-    } catch (IOException e) {
-        System.out.println("Erro ao atualizar arquivo: " + e.getMessage());
     }
-}
-
-
 
     public List<Livro> getLivros() {
         return livros;
