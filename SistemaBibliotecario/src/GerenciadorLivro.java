@@ -146,6 +146,35 @@ public class GerenciadorLivro {
             .anyMatch(l -> l.getCodigo().equals(codigo));
     }
 
+    public boolean livroDisponivel(String codigo) {
+        for (Livro l : livros) {
+            if (l.getCodigo().equals(codigo)) {
+                return l.isDisponivel();
+            }
+        }
+        return false;
+    }
+
+    public void marcarLivroComoIndisponivel(String codigo) {
+        for (Livro l : livros) {
+            if (l.getCodigo().equals(codigo)) {
+                l.setDisponivel(false);
+                atualizarArquivo();
+                return;
+            }
+        }
+    }
+
+    public void marcarLivroComoDisponivel(String codigo) {
+        for (Livro l : livros) {
+            if (l.getCodigo().equals(codigo)) {
+                l.setDisponivel(true);
+                atualizarArquivo();
+                return;
+            }
+        }
+    }
+
     public List<Livro> getLivros() {
         return livros;
     }

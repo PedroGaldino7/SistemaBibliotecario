@@ -33,8 +33,10 @@ public static int lerIntSeguro(Scanner sc) {
         Scanner sc = new Scanner(System.in);
         GerenciadorLivro gerenciadorlivro = new GerenciadorLivro();
         GerenciadorUsuario gerenciadorusuario = new GerenciadorUsuario();
+        GerenciadorEmprestimo gerenciadoremprestimo = new GerenciadorEmprestimo(gerenciadorlivro, gerenciadorusuario);
         gerenciadorlivro.carregarLivrosDoArquivo();
         gerenciadorusuario.carregarUsuariosDoArquivo();
+        gerenciadoremprestimo.carregarEmprestimosDoArquivo();
         int op;
 
         do{
@@ -42,6 +44,7 @@ public static int lerIntSeguro(Scanner sc) {
             System.out.println("=== Sistema Bibliotecario ===");
             System.out.println("1. Gerenciar livros");
             System.out.println("2. Gerenciar usuarios");
+            System.out.println("3. Gerenciar Emprestimos");
             System.out.println("0. Sair");
             System.out.print("Escolha uma opcao: ");
             op = lerIntSeguro(sc);
@@ -266,6 +269,96 @@ public static int lerIntSeguro(Scanner sc) {
                                 break;
                         }
                     } while (opUsuario != 0);
+                    break;
+
+                case 3:
+                    int opEmprestimo;
+
+                    do{
+                        limparTela();
+                        System.out.println("=== Gerenciar Emprestimos ===");
+                        System.out.println("1. Emprestar livro");
+                        System.out.println("2. Devolver livro");
+                        System.out.println("3. Listar emprestimos");
+                        System.out.println("0. Voltar");
+                        System.out.print("Escolha uma opcao: ");
+                        opEmprestimo = lerIntSeguro(sc);
+                        if (opEmprestimo == -1) continue;
+
+                            switch (opEmprestimo) {
+                                case 1:
+                                    limparTela();
+                                    System.out.println("=== Emprestar Livro ===");
+
+                                        if (gerenciadorusuario.getUsuarios().isEmpty()) {
+                                            System.out.println("Nenhum usuario cadastrado.");
+                                            System.out.println("Pressione Enter para continuar...");
+                                            sc.nextLine();
+                                            break;
+                                        }
+
+                                        if (gerenciadorlivro.getLivros().isEmpty()) {
+                                            System.out.println("Nenhum livro cadastrado.");
+                                            System.out.println("Pressione Enter para continuar...");
+                                            sc.nextLine();
+                                            break;
+                                        }
+
+                                    gerenciadorusuario.listarUsuarios();
+                                    System.out.print("Digite a matricula do usuario: ");
+                                    String matricula = sc.nextLine();
+
+                                    limparTela();
+                                    gerenciadorlivro.listarLivros();
+                                    System.out.print("Digite o codigo do livro: ");
+                                    String codigoLivro = sc.nextLine();
+
+                                    limparTela();
+                                    System.out.print("Digite o numero de dias para devolucao: ");
+                                    int diasPraDevolver = lerIntSeguro(sc);
+                                    if (diasPraDevolver == -1) continue;
+                                    boolean emprestado = gerenciadoremprestimo.emprestarLivro(matricula, codigoLivro, diasPraDevolver);
+                                    if (emprestado) {
+                                        System.out.println("Emprestimo realizado com sucesso!");
+                                    } else {
+                                        System.out.println("Erro ao realizar emprestimo.");
+                                    }
+                                    System.out.println("Pressione Enter para continuar...");
+                                    sc.nextLine();
+                                    break;
+                            
+                                case 2:
+                                    limparTela();
+                                    System.out.println("=== Devolver Livro ===");
+                                    gerenciadorlivro.listarLivros();
+                                    System.out.print("Digite o codigo do livro: ");
+                                    String codigoLivroDevolver = sc.nextLine();
+                                    boolean devolvido = gerenciadoremprestimo.devolverLivro(codigoLivroDevolver);
+                                    if (devolvido) {
+                                        System.out.println("Devolucao realizada com sucesso!");
+                                    } else {
+                                        System.out.println("Erro ao realizar devolucao.");
+                                    }
+                                    System.out.println("Pressione Enter para continuar...");
+                                    sc.nextLine();
+                                    break;
+
+                                case 3:
+                                    limparTela();
+                                    System.out.println("=== Lista de Emprestimos ===");
+                                    gerenciadoremprestimo.listarEmprestimos();
+                                    System.out.println("Pressione Enter para continuar...");
+                                    sc.nextLine();
+                                    break;
+
+                                case 0:
+                                    System.out.println("Saindo...");
+                                    break;
+
+                                default:
+                                    break;
+                            }
+                    }while(opEmprestimo != 0);
                     break;
 
                 case 0:
