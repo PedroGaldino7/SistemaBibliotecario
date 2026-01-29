@@ -20,7 +20,7 @@ public static int lerIntSeguro(Scanner sc) {
         } catch (InputMismatchException e) {
             sc.nextLine();
             limparTela();
-            System.out.println("Entrada invalida! Digite apenas numeros.");
+            System.out.println("Entrada invalida! Digite apenas numeros ou números inteiros.");
             System.out.println("Pressione Enter para voltar ao menu...");
             sc.nextLine();
             return -1;
@@ -212,7 +212,7 @@ public static int lerIntSeguro(Scanner sc) {
                                 String matricula = sc.nextLine();
 
                                 if (gerenciadorusuario.usuarioExiste(matricula)) {
-                                    System.out.println("Usuario ja cadastrado.");
+                                    System.out.println("Usuario com essa matricula ja cadastrado.");
                                     System.out.println("Pressione Enter para voltar pro menu...");
                                     sc.nextLine();
                                     break;
@@ -239,7 +239,7 @@ public static int lerIntSeguro(Scanner sc) {
 
                             case 3:
                                 limparTela();
-                                System.out.println("=== Exclusão de Usuarios ===");
+                                System.out.println("=== Exclusao de Usuarios ===");
                                 gerenciadorusuario.listarUsuarios();
 
                                 if (gerenciadorusuario.getUsuarios().isEmpty()) {
@@ -308,21 +308,47 @@ public static int lerIntSeguro(Scanner sc) {
                                     System.out.print("Digite a matricula do usuario: ");
                                     String matricula = sc.nextLine();
 
+                                    if (!gerenciadorusuario.usuarioExiste(matricula)) {
+                                        System.out.println("Usuario nao encontrado.");
+                                        System.out.println("Pressione Enter para continuar...");
+                                        sc.nextLine();
+                                        break;
+                                    }
+
                                     limparTela();
                                     gerenciadorlivro.listarLivros();
                                     System.out.print("Digite o codigo do livro: ");
                                     String codigoLivro = sc.nextLine();
 
+                                    if (!gerenciadorlivro.livroExiste(codigoLivro)) {
+                                        System.out.println("Livro nao encontrado.");
+                                        System.out.println("Pressione Enter para continuar...");
+                                        sc.nextLine();
+                                        break;
+                                    }
+
                                     limparTela();
                                     System.out.print("Digite o numero de dias para devolucao: ");
                                     int diasPraDevolver = lerIntSeguro(sc);
+
                                     if (diasPraDevolver == -1) continue;
+
+                                    if (diasPraDevolver <= 0 ) {
+                                        System.out.println("Numero de dias invalido.");
+                                        System.out.println("Pressione Enter para continuar...");
+                                        sc.nextLine();
+                                        break;
+                                    }
+
                                     boolean emprestado = gerenciadoremprestimo.emprestarLivro(matricula, codigoLivro, diasPraDevolver);
+                                    
                                     if (emprestado) {
                                         System.out.println("Emprestimo realizado com sucesso!");
-                                    } else {
+                                    } 
+                                    else {
                                         System.out.println("Erro ao realizar emprestimo.");
                                     }
+
                                     System.out.println("Pressione Enter para continuar...");
                                     sc.nextLine();
                                     break;
@@ -346,6 +372,14 @@ public static int lerIntSeguro(Scanner sc) {
                                 case 3:
                                     limparTela();
                                     System.out.println("=== Lista de Emprestimos ===");
+
+                                    if (gerenciadoremprestimo.getEmprestimos().isEmpty()) {
+                                        System.out.println("Nenhum emprestimo cadastrado.");
+                                        System.out.println("Pressione Enter para continuar...");
+                                        sc.nextLine();
+                                        break;
+                                    }
+
                                     gerenciadoremprestimo.listarEmprestimos();
                                     System.out.println("Pressione Enter para continuar...");
                                     sc.nextLine();
