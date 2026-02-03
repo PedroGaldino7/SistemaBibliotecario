@@ -20,7 +20,7 @@ public static int lerIntSeguro(Scanner sc) {
         } catch (InputMismatchException e) {
             sc.nextLine();
             limparTela();
-            System.out.println("Entrada invalida! Digite apenas numeros ou números inteiros.");
+            System.out.println("Entrada invalida! Digite apenas numeros ou numeros inteiros.");
             System.out.println("Pressione Enter para voltar ao menu...");
             sc.nextLine();
             return -1;
@@ -172,7 +172,7 @@ public static int lerIntSeguro(Scanner sc) {
                                     if (excluido) {
                                         System.out.println("Livro excluido com sucesso!");
                                     } else {
-                                        System.out.println("Livro nao encontrado.");
+                                        System.out.println("Livro nao encontrado. Digite uma das opcoes.");
                                     }
                                     System.out.println("Pressione Enter para continuar...");
                                     sc.nextLine();
@@ -253,7 +253,7 @@ public static int lerIntSeguro(Scanner sc) {
                                     if (excluido) {
                                         System.out.println("Usuario excluido com sucesso!");
                                     } else {
-                                        System.out.println("Usuario nao encontrado.");
+                                        System.out.println("Usuario nao encontrado. Digite uma das opcoes.");
                                     }
                                     System.out.println("Pressione Enter para continuar...");
                                     sc.nextLine();
