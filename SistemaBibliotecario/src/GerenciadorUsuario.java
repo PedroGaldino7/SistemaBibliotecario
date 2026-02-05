@@ -121,6 +121,16 @@ public class GerenciadorUsuario {
             .anyMatch(u -> u.getMatricula().equals(matricula));
     }
 
+    public String buscarNomeUsuarioPorMatricula(String matricula) {
+        for (Usuario u : usuarios) {
+            if (u.getMatricula().equals(matricula)) {
+                return u.getNome();
+            }
+        }
+        return "Usuário não encontrado";
+    }
+
+
     public List<Usuario> getUsuarios() {
         return usuarios;
     }

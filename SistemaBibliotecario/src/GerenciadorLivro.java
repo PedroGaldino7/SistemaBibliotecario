@@ -175,6 +175,15 @@ public class GerenciadorLivro {
         }
     }
 
+    public String buscarNomeLivroPorCodigo(String codigo) {
+        for (Livro l : livros) {
+            if (l.getCodigo().equals(codigo)) {
+                return l.getTitulo();
+            }
+        }
+        return "Livro não encontrado";
+    }
+
     public List<Livro> getLivros() {
         return livros;
     }

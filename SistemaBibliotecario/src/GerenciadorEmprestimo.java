@@ -125,9 +125,13 @@ public class GerenciadorEmprestimo {
 
     public void listarEmprestimos() {
         for (Emprestimo e : emprestimos) {
+
+            String nomeUsuario = gerenciadorUsuario.buscarNomeUsuarioPorMatricula(e.getMatriculaUsuario());
+            String tituloLivro = gerenciadorLivro.buscarNomeLivroPorCodigo(e.getCodigoLivro());
+
             System.out.println(
-                "Usuario: " + e.getMatriculaUsuario() +
-                ", Livro: " + e.getCodigoLivro() +
+                "Usuario: " + nomeUsuario +
+                ", Livro: " + tituloLivro +
                 ", Data Emprestimo: " + e.getDataEmprestimo() +
                 ", Data Limite Devolucao: " + e.getDataLimiteDevolucao() +
                 ", Data Devolucao: " + (e.getDataDevolucao() != null ? e.getDataDevolucao() : "N/A") +
