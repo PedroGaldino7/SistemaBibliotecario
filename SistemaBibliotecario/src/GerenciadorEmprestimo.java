@@ -18,9 +18,6 @@ public class GerenciadorEmprestimo {
         carregarEmprestimosDoArquivo();
     }
 
-    // ===============================
-    // EMPRESTAR LIVRO
-    // ===============================
     public boolean emprestarLivro(String matricula, String codigoLivro, int diasPraDevolver) {
 
         if (!gerenciadorUsuario.usuarioExiste(matricula) ||
@@ -41,9 +38,6 @@ public class GerenciadorEmprestimo {
         return true;
     }
 
-    // ===============================
-    // DEVOLVER LIVRO
-    // ===============================
     public boolean devolverLivro(String codigoLivro) {
 
         for (Emprestimo e : emprestimos) {
@@ -60,9 +54,6 @@ public class GerenciadorEmprestimo {
         return false;
     }
 
-    // ===============================
-    // ARQUIVO
-    // ===============================
     public void carregarEmprestimosDoArquivo() {
         File arquivo = new File("emprestimos.txt");
         if (!arquivo.exists()) return;
@@ -140,6 +131,10 @@ public class GerenciadorEmprestimo {
         }
     }
 
+    public boolean verificarSeNaoHaEmprestimosAtivos() {
+        return emprestimos.stream().noneMatch(Emprestimo::isAtivo);
+    }
+    
     public List<Emprestimo> getEmprestimos() {
         return emprestimos;
     }
