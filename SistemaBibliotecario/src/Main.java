@@ -134,6 +134,7 @@ public static int lerIntSeguro(Scanner sc) {
                                         for (Livro l : gerenciadorlivro.getLivrosEmprestados()) {
                                             System.out.println(l.getCodigo() + " - " + l.getTitulo() + " | " + l.getAutor());
                                         }
+
                                         System.out.println("Pressione Enter para voltar ao menu...");
                                         sc.nextLine();
                                         break;
@@ -304,6 +305,13 @@ public static int lerIntSeguro(Scanner sc) {
                                             break;
                                         }
 
+                                        if (gerenciadorlivro.getLivrosDisponiveis().isEmpty()) {
+                                            System.out.println("Nenhum livro disponivel para emprestar");
+                                            System.out.println("Pressione Enter para continuar...");
+                                            sc.nextLine();
+                                            break;
+                                        }
+
                                     gerenciadorusuario.listarUsuarios();
                                     System.out.print("Digite a matricula do usuario: ");
                                     String matricula = sc.nextLine();
@@ -316,7 +324,10 @@ public static int lerIntSeguro(Scanner sc) {
                                     }
 
                                     limparTela();
-                                    gerenciadorlivro.listarLivros();
+                                    for (Livro l : gerenciadorlivro.getLivrosDisponiveis()) {
+                                        System.out.println(l.getCodigo() + " - " + l.getTitulo() + " | " + l.getAutor());
+                                    }  
+
                                     System.out.print("Digite o codigo do livro: ");
                                     String codigoLivro = sc.nextLine();
 
@@ -356,7 +367,18 @@ public static int lerIntSeguro(Scanner sc) {
                                 case 2:
                                     limparTela();
                                     System.out.println("=== Devolver Livro ===");
-                                    gerenciadorlivro.listarLivros();
+
+                                    if (gerenciadorlivro.getLivrosEmprestados().isEmpty()) {
+                                            System.out.println("Nenhum livro pra devolução.");
+                                            System.out.println("Pressione Enter para voltar ao menu...");
+                                            sc.nextLine();
+                                            break;
+                                        }
+
+                                    for (Livro l : gerenciadorlivro.getLivrosEmprestados()) {
+                                        System.out.println(l.getCodigo() + " - " + l.getTitulo() + " | " + l.getAutor());
+                                    }
+
                                     System.out.print("Digite o codigo do livro: ");
                                     String codigoLivroDevolver = sc.nextLine();
                                     boolean devolvido = gerenciadoremprestimo.devolverLivro(codigoLivroDevolver);

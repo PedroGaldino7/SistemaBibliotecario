@@ -14,8 +14,6 @@ public class GerenciadorEmprestimo {
         this.emprestimos = new ArrayList<>();
         this.gerenciadorLivro = gl;
         this.gerenciadorUsuario = gu;
-
-        carregarEmprestimosDoArquivo();
     }
 
     public boolean emprestarLivro(String matricula, String codigoLivro, int diasPraDevolver) {
